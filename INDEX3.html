@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ProjBuy - Explore, compare and discover products."
+    >
+
+    <title>ProjBuy</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #06111f,
+                    #0b1d33,
+                    #06111f
+                );
+
+            color: white;
+            min-height: 100vh;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 18px 6%;
+
+            background:
+                rgba(3, 12, 24, 0.85);
+
+            backdrop-filter: blur(15px);
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 900;
+            color: #48aaff;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #d8e8f7;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #48aaff;
+        }
+
+        .nav-button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 25px;
+            background: #248cff;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 85vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: #1688ff;
+            filter: blur(130px);
+
+            opacity: 0.18;
+        }
+
+        .hero::before {
+            top: -100px;
+            left: -100px;
+        }
+
+        .hero::after {
+            bottom: -120px;
+            right: -100px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 90px);
+            line-height: 1;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #48aaff;
+        }
+
+        .hero p {
+            color: #b9cce0;
+            font-size: 19px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 14px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            background: #238cff;
+            color: white;
+        }
+
+        .secondary-btn {
+            border: 1px solid #3e6485;
+            color: white;
+        }
+
+        .primary-btn:hover,
+        .secondary-btn:hover {
+            transform: translateY(-4px);
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        section {
+            padding: 90px 6%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #9eb5ca;
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-box {
+            max-width: 800px;
+            margin: auto;
+
+            display: flex;
+            background: #10263d;
+
+            padding: 8px;
+
+            border-radius: 50px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            padding: 14px 20px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #238cff;
+            color: white;
+            border-radius: 40px;
+            padding: 12px 24px;
+        }
+
+        /* =========================
+           CATEGORIES
+        ========================= */
+
+        .categories {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 20px;
+        }
+
+        .category {
+            padding: 30px;
+            text-align: center;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 20px;
+
+            transition: 0.3s;
+        }
+
+        .category:hover {
+            transform: translateY(-8px);
+            background:
+                rgba(36,140,255,0.1);
+        }
+
+        .category-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           PRODUCTS
+        ========================= */
+
+        .products {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 25px;
+        }
+
+        .product {
+            background: #0e2135;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            height: 190px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #163b5e,
+                    #0a1727
+                );
+
+            font-size: 65px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            color: #91a9bf;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .price {
+            color: #55b1ff;
+            font-weight: bold;
+        }
+
+        .small-btn {
+            border: none;
+            background: #238cff;
+            color: white;
+            padding: 9px 13px;
+            border-radius: 10px;
+        }
+
+        /* =========================
+           AI
+        ========================= */
+
+        .ai-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .ai-info h2 {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .ai-info p {
+            color: #a9bed1;
+            line-height: 1.8;
+        }
+
+        .chat {
+            background: #0c1d30;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .chat-header {
+            padding: 18px;
+            background: #122d48;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 15px;
+            line-height: 1.5;
+        }
+
+        .ai-message {
+            background: #18334e;
+        }
+
+        .user-message {
+            background: #238cff;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+            border-top:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .chat-input input {
+            flex: 1;
+            background: #10253a;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 13px;
+            border-radius: 12px;
+        }
+
+        .chat-input button {
+            border: none;
+            background: #238cff;
+            color: white;
+            padding: 0 18px;
+            border-radius: 12px;
+        }
+
+        /* =========================
+           ADMIN
+        ========================= */
+
+        .admin {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .admin-login,
+        .admin-panel {
+            background: #0e2135;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 20px;
+
+            padding: 30px;
+        }
+
+        .admin-login input {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+
+            background: #071625;
+            border: 1px solid #274763;
+            border-radius: 10px;
+
+            color: white;
+            outline: none;
+        }
+
+        .admin-login button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #238cff;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .admin-search {
+            display: flex;
+            gap: 10px;
+        }
+
+        .admin-search input {
+            padding: 12px;
+            background: #071625;
+            border: 1px solid #274763;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .user-card {
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            gap: 15px;
+
+            padding: 18px;
+
+            margin-top: 12px;
+
+            background: #091a2b;
+
+            border-radius: 15px;
+        }
+
+        .user-details p {
+            color: #8fa9c0;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #153b2c;
+            color: #67e0a3;
+            font-size: 12px;
+        }
+
+        .status.suspended {
+            background: #45391c;
+            color: #ffd76a;
+        }
+
+        .status.blocked {
+            background: #481f27;
+            color: #ff8795;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .admin-actions button {
+            border: none;
+            padding: 8px 11px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .suspend {
+            background: #b78119;
+        }
+
+        .block {
+            background: #c93649;
+        }
+
+        .unsuspend {
+            background: #287d55;
+        }
+
+        .logout {
+            background: #334b61;
+        }
+
+        /* =========================
+           TRUST
+        ========================= */
+
+        .trust-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+        .trust-card {
+            padding: 25px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            border:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .trust-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .trust-card p {
+            color: #9bb0c3;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 45px 6%;
+            text-align: center;
+
+            border-top:
+                1px solid rgba(255,255,255,0.08);
+
+            color: #8ea4b8;
+        }
+
+        footer strong {
+            color: #48aaff;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 75vh;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .ai-section {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-search {
+                width: 100%;
+            }
+
+            .admin-search input {
+                flex: 1;
+            }
+
+            .user-card {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav>
+
+        <div class="logo">
+            Proj<span>Buy</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#products">Products</a>
+            </li>
+
+            <li>
+                <a href="#ai">AI Assistant</a>
+            </li>
+
+            <li>
+                <a href="#admin">Creator</a>
+            </li>
+
+        </ul>
+
+        <a
+            class="nav-button"
+            href="#products"
+        >
+            Explore
+        </a>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section
+        class="hero"
+        id="home"
+    >
+
+        <div class="hero-content">
+
+            <h1>
+                Discover.
+                <span>Compare.</span>
+                Buy.
+            </h1>
+
+            <p>
+                Welcome to ProjBuy — a modern marketplace
+                designed to help people discover products,
+                compare options and make informed decisions.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    class="primary-btn"
+                    href="#products"
+                >
+                    Explore Products
+                </a>
+
+                <a
+                    class="secondary-btn"
+                    href="#ai"
+                >
+                    Talk to AI
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SEARCH
+    ========================== -->
+
+    <section class="reveal">
+
+        <div class="section-title">
+
+            <h2>Search ProjBuy</h2>
+
+            <p>
+                Find products and categories quickly.
+            </p>
+
+        </div>
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search products..."
+            >
+
+            <button onclick="searchProducts()">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CATEGORIES
+    ========================== -->
+
+    <section class="reveal">
+
+        <div class="section-title">
+
+            <h2>Categories</h2>
+
+            <p>
+                Explore different areas of the marketplace.
+            </p>
+
+        </div>
+
+        <div class="categories">
+
+            <div class="category">
+                <div class="category-icon">💻</div>
+                <h3>Technology</h3>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">📱</div>
+                <h3>Phones</h3>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🎮</div>
+                <h3>Gaming</h3>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">👟</div>
+                <h3>Fashion</h3>
+            </div>
+
+            <div class="category">
+                <div class="category-icon">🚗</div>
+                <h3>Automotive</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================== -->
+
+    <section
+        id="products"
+        class="reveal"
+    >
+
+        <div class="section-title">
+
+            <h2>Featured Products</h2>
+
+            <p>
+                Example marketplace products.
+            </p>
+
+        </div>
+
+        <div
+            class="products"
+            id="productGrid"
+        >
+
+            <div
+                class="product"
+                data-name="gaming laptop"
+            >
+
+                <div class="product-image">
+                    💻
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Gaming Laptop</h3>
+
+                    <p>
+                        High-performance laptop for gaming,
+                        school and creative projects.
+                    </p>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            PKR 180,000
+                        </span>
+
+                        <button class="small-btn">
+                            Compare
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product"
+                data-name="smartphone"
+            >
+
+                <div class="product-image">
+                    📱
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Smartphone</h3>
+
+                    <p>
+                        Modern smartphone with a high-quality
+                        display and powerful performance.
+                    </p>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            PKR 95,000
+                        </span>
+
+                        <button class="small-btn">
+                            Compare
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product"
+                data-name="gaming headphones"
+            >
+
+                <div class="product-image">
+                    🎧
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Gaming Headphones</h3>
+
+                    <p>
+                        Comfortable headphones designed for
+                        gaming and entertainment.
+                    </p>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            PKR 12,000
+                        </span>
+
+                        <button class="small-btn">
+                            Compare
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="product"
+                data-name="sports car"
+            >
+
+                <div class="product-image">
+                    🚗
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Sports Car</h3>
+
+                    <p>
+                        Explore performance cars and
+                        automotive technology.
+                    </p>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            View Details
+                        </span>
+
+                        <button class="small-btn">
+                            Explore
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         AI ASSISTANT
+    ========================== -->
+
+    <section
+        id="ai"
+        class="reveal"
+    >
+
+        <div class="ai-section">
+
+            <div class="ai-info">
+
+                <h2>
+                    Meet ProjBuy AI
+                </h2>
+
+                <p>
+                    Instead of traditional bots, ProjBuy
+                    includes an AI assistant interface that
+                    can help users search products, compare
+                    options and navigate the marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="chat">
+
+                <div class="chat-header">
+                    🤖 ProjBuy AI
+                </div>
+
+                <div
+                    class="chat-messages"
+                    id="chatMessages"
+                >
+
+                    <div class="message ai-message">
+                        Hi! I'm ProjBuy AI.
+                        How can I help you?
+                    </div>
+
+                </div>
+
+                <div class="chat-input">
+
+                    <input
+                        id="chatInput"
+                        type="text"
+                        placeholder="Ask ProjBuy AI..."
+                    >
+
+                    <button onclick="sendMessage()">
+                        Send
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TRUST CENTER
+    ========================== -->
+
+    <section class="reveal">
+
+        <div class="section-title">
+
+            <h2>ProjBuy Trust Center</h2>
+
+            <p>
+                Safety and responsible platform management.
+            </p>
+
+        </div>
+
+        <div class="trust-grid">
+
+            <div class="trust-card">
+
+                <h3>🔐 Account Security</h3>
+
+                <p>
+                    Accounts should use secure authentication
+                    and passwords should never be exposed
+                    through the creator dashboard.
+                </p>
+
+            </div>
+
+            <div class="trust-card">
+
+                <h3>🛡️ Moderation</h3>
+
+                <p>
+                    Reported accounts can be reviewed by
+                    authorized administrators and appropriate
+                    actions can be recorded.
+                </p>
+
+            </div>
+
+            <div class="trust-card">
+
+                <h3>📋 Audit Logs</h3>
+
+                <p>
+                    Administrative actions are recorded so
+                    important moderation changes can be
+                    reviewed later.
+                </p>
+
+            </div>
+
+            <div class="trust-card">
+
+                <h3>👤 Data Minimization</h3>
+
+                <p>
+                    The creator dashboard is designed to show
+                    only account information needed for
+                    moderation and administration.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CREATOR DASHBOARD
+    ========================== -->
+
+    <section
+        id="admin"
+        class="reveal"
+    >
+
+        <div class="section-title">
+
+            <h2>Creator Dashboard</h2>
+
+            <p>
+                Authorized creator administration.
+            </p>
+
+        </div>
+
+
+        <div class="admin">
+
+            <!-- LOGIN -->
+
+            <div
+                class="admin-login"
+                id="adminLogin"
+            >
+
+                <h3>
+                    Creator Login
+                </h3>
+
+                <p
+                    style="
+                    color:#9eb5ca;
+                    margin-top:8px;
+                    "
+                >
+                    Authorized creator:
+                    a.haider6777@gmail.com
+                </p>
+
+                <input
+                    id="adminEmail"
+                    type="email"
+                    placeholder="Creator email"
+                >
+
+                <input
+                    id="adminPassword"
+                    type="password"
+                    placeholder="Creator password"
+                >
+
+                <button
+                    onclick="adminLogin()"
+                >
+                    Login
+                </button>
+
+                <p
+                    id="adminLoginMessage"
+                    style="
+                    margin-top:15px;
+                    color:#ff8795;
+                    "
+                ></p>
+
+            </div>
+
+
+            <!-- PANEL -->
+
+            <div
+                class="admin-panel"
+                id="adminPanel"
+            >
+
+                <div class="admin-top">
+
+                    <div>
+
+                        <h3>
+                            ProjBuy Administration
+                        </h3>
+
+                        <p
+                            id="creatorEmail"
+                            style="
+                            color:#91a9bf;
+                            margin-top:5px;
+                            "
+                        ></p>
+
+                    </div>
+
+                    <button
+                        class="admin-actions logout"
+                        onclick="adminLogout()"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+
+                <div class="admin-search">
+
+                    <input
+                        id="userSearch"
+                        type="text"
+                        placeholder="Search user..."
+                    >
+
+                    <button
+                        class="small-btn"
+                        onclick="loadUsers()"
+                    >
+                        Search
+                    </button>
+
+                </div>
+
+
+                <div id="usersContainer">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            © 2026 <strong>ProjBuy</strong>
+        </p>
+
+        <p style="margin-top:8px;">
+            All rights reserved.
+        </p>
+
+        <p style="margin-top:8px;">
+            Created and owned by ProjBuy.
+        </p>
+
+        <p style="margin-top:8px;">
+            Creator:
+            a.haider6777@gmail.com
+        </p>
+
+        <p
+            style="
+            margin-top:15px;
+            font-size:12px;
+            "
+        >
+            ProjBuy proprietary software.
+            Unauthorized copying or redistribution
+            is not permitted.
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           SCROLL ANIMATION
+        ========================== */
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+        document
+            .querySelectorAll(".reveal")
+            .forEach(element => {
+                observer.observe(element);
+            });
+
+
+        /* =========================
+           SEARCH
+        ========================== */
+
+        function searchProducts() {
+
+            const query =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+            const products =
+                document.querySelectorAll(".product");
+
+            products.forEach(product => {
+
+                const name =
+                    product.dataset.name;
+
+                if (
+                    !query ||
+                    name.includes(query)
+                ) {
+                    product.style.display = "";
+                } else {
+                    product.style.display = "none";
+                }
+
+            });
+
+        }
+
+
+        /* =========================
+           AI CHAT
+        ========================== */
+
+        async function sendMessage() {
+
+            const input =
+                document.getElementById("chatInput");
+
+            const messages =
+                document.getElementById("chatMessages");
+
+            const message =
+                input.value.trim();
+
+            if (!message) return;
+
+            const userMessage =
+                document.createElement("div");
+
+            userMessage.className =
+                "message user-message";
+
+            userMessage.textContent =
+                message;
+
+            messages.appendChild(userMessage);
+
+            input.value = "";
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+            try {
+
+                const response =
+                    await fetch("/api/ai-chat", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: message
+                        })
+
+                    });
+
+                const data =
+                    await response.json();
+
+                const aiMessage =
+                    document.createElement("div");
+
+                aiMessage.className =
+                    "message ai-message";
+
+                aiMessage.textContent =
+                    data.reply;
+
+                messages.appendChild(aiMessage);
+
+                messages.scrollTop =
+                    messages.scrollHeight;
+
+            } catch (error) {
+
+                const aiMessage =
+                    document.createElement("div");
+
+                aiMessage.className =
+                    "message ai-message";
+
+                aiMessage.textContent =
+                    "The AI service is currently unavailable.";
+
+                messages.appendChild(aiMessage);
+
+            }
+
+        }
+
+
+        document
+            .getElementById("chatInput")
+            .addEventListener(
+                "keydown",
+                event => {
+
+                    if (event.key === "Enter") {
+                        sendMessage();
+                    }
+
+                }
+            );
+
+
+        /* =========================
+           ADMIN LOGIN
+        ========================== */
+
+        async function adminLogin() {
+
+            const email =
+                document
+                    .getElementById("adminEmail")
+                    .value;
+
+            const password =
+                document
+                    .getElementById("adminPassword")
+                    .value;
+
+            const message =
+                document
+                    .getElementById(
+                        "adminLoginMessage"
+                    );
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/admin/login",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email,
+                                password
+                            })
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!data.success) {
+
+                    message.textContent =
+                        data.message;
+
+                    return;
+                }
+
+                document
+                    .getElementById(
+                        "adminLogin"
+                    )
+                    .style.display = "none";
+
+                document
+                    .getElementById(
+                        "adminPanel"
+                    )
+                    .style.display = "block";
+
+                loadAdminInfo();
+                loadUsers();
+
+            } catch (error) {
+
+                message.textContent =
+                    "Server connection failed.";
+
+            }
+
+        }
+
+
+        /* =========================
+           ADMIN INFORMATION
+        ========================== */
+
+        async function loadAdminInfo() {
+
+            const response =
+                await fetch("/api/admin/me");
+
+            const data =
+                await response.json();
+
+            if (data.success) {
+
+                document
+                    .getElementById(
+                        "creatorEmail"
+                    )
+                    .textContent =
+                    data.creator.email;
+
+            }
+
+        }
+
+
+        /* =========================
+           LOAD USERS
+        ========================== */
+
+        async function loadUsers() {
+
+            const query =
+                document
+                    .getElementById(
+                        "userSearch"
+                    )
+                    .value
+                    .trim();
+
+            let url =
+                "/api/admin/users";
+
+            if (query) {
+                url =
+                    "/api/admin/users/search?q=" +
+                    encodeURIComponent(query);
+            }
+
+            const response =
+                await fetch(url);
+
+            if (response.status === 401) {
+
+                showAdminLogin();
+                return;
+
+            }
+
+            const data =
+                await response.json();
+
+            renderUsers(data.users);
+
+        }
+
+
+        /* =========================
+           RENDER USERS
+        ========================== */
+
+        function renderUsers(users) {
+
+            const container =
+                document.getElementById(
+                    "usersContainer"
+                );
+
+            container.innerHTML = "";
+
+            if (!users.length) {
+
+                container.innerHTML =
+                    `<p style="margin-top:25px;color:#91a9bf;">
+                        No users found.
+                    </p>`;
+
+                return;
+            }
+
+            users.forEach(user => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "user-card";
+
+                let actions = "";
+
+                if (
+                    user.status ===
+                    "suspended"
+                ) {
+
+                    actions += `
+                        <button
+                            class="unsuspend"
+                            onclick="changeUserStatus(
+                                ${user.id},
+                                'unsuspend'
+                            )"
+                        >
+                            Unsuspend
+                        </button>
+                    `;
+
+                } else {
+
+                    actions += `
+                        <button
+                            class="suspend"
+                            onclick="changeUserStatus(
+                                ${user.id},
+                                'suspend'
+                            )"
+                        >
+                            Suspend
+                        </button>
+                    `;
+
+                }
+
+                if (
+                    user.status !==
+                    "blocked"
+                ) {
+
+                    actions += `
+                        <button
+                            class="block"
+                            onclick="changeUserStatus(
+                                ${user.id},
+                                'block'
+                            )"
+                        >
+                            Block
+                        </button>
+                    `;
+
+                }
+
+                card.innerHTML = `
+
+                    <div class="user-details">
+
+                        <h3>
+                            ${escapeHTML(user.name)}
+                        </h3>
+
+                        <p>
+                            Email:
+                            ${escapeHTML(user.email)}
+                        </p>
+
+                        <p>
+                            Account created:
+                            ${escapeHTML(user.createdAt)}
+                        </p>
+
+                        <p>
+                            Last login:
+                            ${escapeHTML(user.lastLogin)}
+                        </p>
+
+                        <p>
+                            Reports:
+                            ${user.reports}
+                        </p>
+
+                        <span class="
+                            status
+                            ${user.status}
+                        ">
+                            ${escapeHTML(user.status)}
+                        </span>
+
+                    </div>
+
+                    <div class="admin-actions">
+                        ${actions}
+                    </div>
+                `;
+
+                container.appendChild(card);
+
+            });
+
+        }
+
+
+        /* =========================
+           USER ACTION
+        ========================== */
+
+        async function changeUserStatus(
+            userId,
+            action
+        ) {
+
+            const confirmed =
+                confirm(
+                    `Are you sure you want to ${action} this user?`
+                );
+
+            if (!confirmed) return;
+
+            const response =
+                await fetch(
+                    `/api/admin/users/${userId}/${action}`,
+                    {
+                        method: "POST"
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            alert(data.message);
+
+            loadUsers();
+
+        }
+
+
+        /* =========================
+           LOGOUT
+        ========================== */
+
+        async function adminLogout() {
+
+            await fetch(
+                "/api/admin/logout",
+                {
+                    method: "POST"
+                }
+            );
+
+            showAdminLogin();
+
+        }
+
+
+        /* =========================
+           SHOW LOGIN
+        ========================== */
+
+        function showAdminLogin() {
+
+            document
+                .getElementById(
+                    "adminLogin"
+                )
+                .style.display = "block";
+
+            document
+                .getElementById(
+                    "adminPanel"
+                )
+                .style.display = "none";
+
+        }
+
+
+        /* =========================
+           SECURITY
+        ========================== */
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
